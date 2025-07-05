@@ -14,6 +14,14 @@ var (
 	configPath = "data/airecord/recordconfig.json" // 配置文件路径
 )
 
+func init() {
+	if err := loadConfig(); err != nil {
+		logrus.Warnln("WARN: 加载配置文件失败，使用默认配置:", err)
+	} else {
+		logrus.Infoln("成功从文件加载语音记录配置")
+	}
+}
+
 // recordconfig 存储语音记录相关配置
 type recordconfig struct {
 	ModelName string `json:"modelName"` // 语音模型名称
@@ -26,21 +34,21 @@ func GetRecordConfig() recordconfig {
 	return recordcfg
 }
 
-// setRecordModel 设置语音记录模型
-func setRecordModel(modelName, modelID string) {
+// SetRecordModel 设置语音记录模型
+func SetRecordModel(modelName, modelID string) {
 	recordcfg.ModelName = modelName
 	recordcfg.ModelID = modelID
 	saveConfig() // 保存配置
 }
 
-// setCustomGID 设置自定义群ID
-func setCustomGID(gid int64) {
+// SetCustomGID 设置自定义群ID
+func SetCustomGID(gid int64) {
 	recordcfg.Customgid = gid
 	saveConfig() // 保存配置
 }
 
-// printRecordConfig 生成格式化的语音记录配置信息字符串
-func printRecordConfig(recCfg recordconfig) string {
+// PrintRecordConfig 生成格式化的语音记录配置信息字符串
+func PrintRecordConfig(recCfg recordconfig) string {
 	var builder strings.Builder
 	builder.WriteString("当前语音记录配置：\n")
 	builder.WriteString(fmt.Sprintf("• 语音模型名称：%s\n", recCfg.ModelName))
