@@ -16,9 +16,9 @@ var (
 
 func init() {
 	if err := loadConfig(); err != nil {
-		logrus.Warnln("WARN: 加载配置文件失败，使用默认配置:", err)
+		logrus.Warnln("[airecord] WARN: 加载配置文件失败，使用默认配置:", err)
 	} else {
-		logrus.Infoln("成功从文件加载语音记录配置")
+		logrus.Infoln("[airecord] 成功从文件加载语音记录配置")
 	}
 }
 
